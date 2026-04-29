@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  find-projects:
+    runs-on: ubuntu-latest
+    outputs:
+      projects: ${{ steps.set-matrix.outputs.projects }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-matrix
+        run: |
+          PROJECTS=$(find . -name 'package.json' -not -path './package.json' -not -path '*/node_modules/*' -exec dirname {} \; | sed 's|^\./||' | jq -R -s -c 'split("\n")[:-1]')
+          echo "projects=$PROJECTS" >> $GITHUB_OUTPUT
+
+  test:
+    needs: find-projects
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.find-projects.outputs.projects) }}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        working-directory: ${{ matrix.project }}
+        run: npm install
+      - name: Run tests
+        working-directory: ${{ matrix.project }}
+        run: npm test

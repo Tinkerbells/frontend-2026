@@ -1,0 +1,19 @@
+{
+  "name": "tamagotchi-template",
+  "version": "1.0.0",
+  "description": "Шаблон для разработки игры Тамагочи на чистом JS",
+  "main": "src/game.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/**/*.test.js",
+    "start": "node src/game.js"
+  },
+  "keywords": [
+    "game",
+    "tamagotchi",
+    "template",
+    "javascript",
+    "objects"
+  ],
+  "license": "MIT"
+}

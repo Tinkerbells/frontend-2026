@@ -1,0 +1,18 @@
+{
+  "name": "guess-the-number-template",
+  "version": "1.0.0",
+  "description": "Шаблон для разработки игры Угадай Число на чистом JS",
+  "main": "src/game.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/**/*.test.js",
+    "start": "node src/game.js"
+  },
+  "keywords": [
+    "game",
+    "guess-the-number",
+    "template",
+    "javascript"
+  ],
+  "license": "MIT"
+}
